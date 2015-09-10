@@ -1,0 +1,5 @@
+suites:
+  windwardrail_suite:
+    namespace: WindwardRail
+    src_path: src
+    spec_prefix: spec

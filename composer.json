@@ -1,0 +1,29 @@
+{
+    "name": "windward-rail/fast-migrations",
+    "description": "Make tests run faster by using fresh copies of pre-migrated databases.",
+    "keywords": [
+        "test",
+        "database",
+        "migration",
+        "laravel"
+    ],
+    "authors": [
+        {
+            "name": "Devin Smith",
+            "email": "windwardrail@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.0.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "WindwardRail\\FastMigrations": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
