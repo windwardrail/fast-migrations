@@ -1,8 +1,10 @@
 <?php namespace WindwardRail\FastMigrations;
 
+use Artisan;
 use Config;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use WindwardRail\FastMigrations\Commands\RegenerateTestDBCommand;
 
 class FastMigrationsServiceProvider extends ServiceProvider {
 
@@ -28,6 +30,12 @@ class FastMigrationsServiceProvider extends ServiceProvider {
 			return new DatabaseTransactor($db_path, $db_suffix, $target_db);
 		});
 
+		$this->app['command.fast-migrations.run'] = $this->app->share(function($app)
+		{
+			return new RegenerateTestDBCommand;
+		});
+
+		$this->commands(array('command.fast-migrations.run'));
 	}
 
 	public function boot() {
@@ -38,7 +46,7 @@ class FastMigrationsServiceProvider extends ServiceProvider {
 			'WindwardRail\FastMigrations\Facades\FastMigrator'
 		);
 
-		//Artisan::add(new RegenerateTestDBCommand);
+
 
 	}
 
