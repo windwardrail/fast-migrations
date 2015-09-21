@@ -3,14 +3,28 @@
 use File;
 
 class DatabaseTransactor {
+    /**
+     * The path used for database storage
+
+     * @var string
+     */
     protected $db_path;
 
+    /**
+     * Suffix appended to stored databases
+     *
+     * @var string
+     */
     protected $db_suffix;
 
+    /**
+     * Temp file to be used as database stand in
+     *
+     * @var string
+     */
     protected $target_db;
 
     /**
-     * DatabaseTransactor constructor.
      * @param string $db_path
      * @param string $db_suffix
      * @param string $target_db
@@ -21,6 +35,11 @@ class DatabaseTransactor {
         $this->target_db = $target_db . '.sqlite';
     }
 
+    /**
+     * Migrate the database for the given test suite by overwriting the target database file with the stored version.
+     *
+     * @param string $suite_name
+     */
     public function migrate($suite_name = 'empty') {
         $db_path = app_path() . $this->db_path;
         $source_db_path = $db_path . $suite_name . $this->db_suffix;

@@ -2,7 +2,7 @@
 
 return [
     /*-------------------------------------------------
-    Migrated and seeded databases will live here.
+    Migrated and seeded test databases will live here.
     -------------------------------------------------*/
     'db_path'     => '/tests/_data/',
 
@@ -18,7 +18,8 @@ return [
 
     /*-------------------------------------------------
     Match this to the environment under which you will
-    be running tests.
+    be running tests. This environment should be set up
+    to use the sqlite db driver.
     -------------------------------------------------*/
     'environment' => 'testing'
 ];

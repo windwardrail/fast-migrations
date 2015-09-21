@@ -22,7 +22,7 @@ class RegenerateTestDBCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Regenerate the test database stubs';
+	protected $description = 'Migrate and seed the stored test databases.';
 
 	/**
 	 * Create a new command instance.
@@ -41,16 +41,19 @@ class RegenerateTestDBCommand extends Command {
 	 */
 	public function fire()
 	{
+		/* Check that the current application environment matches the one specified in configuration */
 		$environment = Config::get('fast-migrations::config.environment');
 		if( ! App::environment($environment)){
 			$this->error("Environments do not match! Run command with --env='{$environment}'");
 			return;
 		}
 
+		/* Set up paths and filename constants */
 		$path = app_path() . Config::get('fast-migrations::config.db_path');;
 		$suites = Config::get('fast-migrations::suites');
 		$db_suffix = Config::get('fast-migrations::config.db_suffix');
 
+		/* Migrate and seed each database registered in the suites configuration file */
 		foreach($suites as $suite_name => $class_name){
             echo("Migrating and seeding $suite_name suite.\n");
 
@@ -67,29 +70,4 @@ class RegenerateTestDBCommand extends Command {
             ]);
         }
 	}
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-//			array('example', InputArgument::REQUIRED, 'An example argument.'),
-		);
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-//			array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
-	}
-
 }

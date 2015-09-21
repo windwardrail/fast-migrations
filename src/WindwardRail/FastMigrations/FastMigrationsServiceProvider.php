@@ -22,6 +22,7 @@ class FastMigrationsServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		// Bind the class used for the facade
 		$this->app->bind('FastMigrator', function($app) {
 			$db_path = Config::get('fast-migrations::config.db_path');
 			$db_suffix = Config::get('fast-migrations::config.db_suffix');
@@ -30,24 +31,22 @@ class FastMigrationsServiceProvider extends ServiceProvider {
 			return new DatabaseTransactor($db_path, $db_suffix, $target_db);
 		});
 
+		// Register the artisan command
 		$this->app['command.fast-migrations.run'] = $this->app->share(function($app)
 		{
 			return new RegenerateTestDBCommand;
 		});
-
 		$this->commands(array('command.fast-migrations.run'));
 	}
 
 	public function boot() {
 		$this->package('windward-rail/fast-migrations');
 
+		// Register the Facade Alias
 		AliasLoader::getInstance()->alias(
 			'FastMigrator',
 			'WindwardRail\FastMigrations\Facades\FastMigrator'
 		);
-
-
-
 	}
 
 	/**
