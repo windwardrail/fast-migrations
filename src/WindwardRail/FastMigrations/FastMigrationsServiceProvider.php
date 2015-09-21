@@ -24,11 +24,11 @@ class FastMigrationsServiceProvider extends ServiceProvider {
 	{
 		// Bind the class used for the facade
 		$this->app->bind('FastMigrator', function($app) {
-			$db_path = Config::get('fast-migrations::config.db_path');
+			$db_path = app_path() . Config::get('fast-migrations::config.db_path');
 			$db_suffix = Config::get('fast-migrations::config.db_suffix');
 			$target_db = Config::get('fast-migrations::config.target_db');
 
-			return new DatabaseTransactor($db_path, $db_suffix, $target_db);
+			return new DatabaseTransactor($db_path, $db_suffix, $target_db, new IlluminateFileDriver);
 		});
 
 		// Register the artisan command
