@@ -1,5 +1,5 @@
 {
-    "name": "windward-rail/fast-migrations",
+    "name": "windwardrail/fast-migrations",
     "description": "Make tests run faster by using fresh copies of pre-migrated databases.",
     "keywords": [
         "test",
